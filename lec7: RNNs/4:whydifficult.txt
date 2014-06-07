@@ -1,0 +1,51 @@
+
+WHY DIFFICULT TO TRAIN A RECURRENT NEURAL NETWORK
+
+exploding gradient
+==================
+
+because the backward pass is linear.
+the forward pass isn't: sigmoid neurons sqash the input, prevent
+explosion.
+
+----
+
+once you've finished the forward pass, the slope of the tangent is
+fixed. you now backpropagate, which is like going forward through a
+linear system in which the slope of the non-linearity has been fixed.
+
+each time you backpropagate, the slopes will be different because they
+were determined by the forward pass. but during backpropagation, it's
+a linear system. the problem with linear systems is that when you
+iterate, they tend to either explode or die.
+
+-> by the backward pass being linear, he means the chain rule for
+   getting the partial derivative of a weight way back is the product
+   of partial derivatives of a whole bunch of units in front
+
+-> this is the case for feed forward nets too. but backprop through
+   time has many more layers! one for each time step.
+
+----
+
+if the weights are small (big), the gradients shrink (grow) exponentially.
+if the growth rate of a gradient from layer k to k-1 is r, by the time
+we reach the lowest layer, the gradient has grown by r^k.
+
+-> verify mathematically how the gradient value changes as it propagates.
+
+----
+
+we can avoid this by initialising the weights very carefully, but it's
+hard to detect the dependency of the current output on an input from
+many time steps ago. so RNNs have difficulty dealing with long-range
+dependencies.
+
+stopped at 4:10.
+
+
+
+
+
+
+
