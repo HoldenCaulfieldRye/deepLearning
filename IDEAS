@@ -1,4 +1,14 @@
 
+
+Detect tight bowls and plateaus and deal with them ANALYTICALLY
+===============================================================
+
+
+Incorporate more domain knowledge into network architecture
+===========================================================
+Need to copy my handwritten notes.
+
+
 How approximation of error surface works
 ========================================
 How does the training set provide an approximation of the true error surface? Since it can introduce dangerous minima, does that mean that, formally, it does not always provide an extrema-conserving approximation of the true error surface? Theoretically, what are the conditions for obtaining an extrema-conserving approximation (i.e. that doesn't introduce fake minima)? Practically, can we perform transformations on the cost function, or do stuff to our data (sampling), to limit the introduction of fake minima? 
