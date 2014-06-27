@@ -1,3 +1,28 @@
 
+CNNs global minimum with local optimisation
+===========================================
+At a conference in Paris a few weeks ago, Yann LeCun was asked why
+given sufficient data, CNNs converge to a minimum which is as good as
+global with local optimisation (i.e. regardless of weight
+initialisations aka unsupervised pretraining). If I remember
+correctly, it can be shown that the error surface of CNNs has its
+extrema bunched up in the same area, and they have roughly the same
+values. I think it involves random matrix theory and polynomials.
+
+Sufficient data is needed in order to have a good enough approximation
+of the 'true' error surface. And this paper trains CNNs on ImageNet
+with and without unsupervised pretraining, and finds the same results:
+bit.ly/VqZwW4
+
+Btw, Yann mentions that saddle points are a problem in slowing down
+training. new algo seems to solve this: bit.ly/VqZFZD
+
+
+What is the function space spanned by a given net?
+==================================================
+How does the function change when we add a unit, a layer?
+
+
 Why are weights so tiny?
 ========================
+

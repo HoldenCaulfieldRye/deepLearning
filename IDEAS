@@ -24,6 +24,20 @@ Seeing as early stopping works well, I guess it means that this is true. But why
 
 The reason for why I wonder is because: what if this is true only to a certain extent? Perhaps the way it works, very crudely speaking, is that the next pattern to be learned is the biggest or simplest (BorS) one. While the next-BorS one generalises, we're good. As soon as the next-BorS one does not, and is merely local to the sample, we get overfit, and that worsens performance. So maybe we miss out on all of the smaller generalising patterns.
 
+There is evidence for this intuition: a bigger dataset generalises
+better. a bigger dataset also has sample-specific patterns which are
+smaller or more complex. maybe latter causes the former, by pushing
+down the net's threshold for minimum size / maximum complexity of
+generalising pattern it can pick up.
+
+Why does the network always pick up the next biggest or simplest
+pattern? Because of gradient descent: pick the steepest slope. Would
+be fantastic to try to show that the two are closely linked, and then
+to identify the mechanism that links them.
+
+Even if all this is true, so what? How can we use this knowledge to
+improve learning algos?
+
 
 Training layer by layer, adding an extra only if need be
 ========================================================
