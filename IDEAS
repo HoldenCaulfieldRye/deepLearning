@@ -1,7 +1,17 @@
 
+must watch: bit.ly/1pEOuYV
+Bengio google tech talk video 
 
-Detect tight bowls and plateaus and deal with them ANALYTICALLY
-===============================================================
+
+Stochastic Dropout
+==================
+Should we be dropping units randomly? Or should we drop with a
+probability based on how inactive they have been when training on the
+given class? 
+Idea is to get parts of the network to specialise in subtasks. 
+At test time, will the net know which guys to switch off? Since
+dropout is at fc layers only, we could help it use info from highest
+conv layer?
 
 
 Incorporate more domain knowledge into network architecture
@@ -41,5 +51,96 @@ improve learning algos?
 
 Training layer by layer, adding an extra only if need be
 ========================================================
+Oh that actually already exists!
+
+
+Is learning a convnet component in isolation a convex prob?
+=====================================================================
+From the ILVRC 2013 tutorial (cd Microsoft Research deep learning
+textbook) and Boureau et al's paper "A Theoretical Analysis of Feature
+Pooling in Visual Recognition", it seems that convnets are learning
+components that computer vision people were formally hand-crafting and
+de facto manually optimising. 
+
+Might be interesting to study each component (pixel feature, spatial
+feature, normalisation, bias), and see if possible to analytically
+determine whether the optimisation problem for each, taken
+independently, is convex. 
+
+
+Detect tight bowls and plateaus and deal with them ANALYTICALLY
+===============================================================
+
+
+Unsupervised Learning: remove variation known to not belong to classes
+======================================================================
+Problem with unsupervised learning is that the 'best' clusters do not
+correspond to the classes of interest, e.g. colour or brightness
+clusters for image classification.
+
+So why not remove this variation in the data?
+
+There are 3 ways of doing this:
+- modify training data (eg subtract the mean)
+- embed in model (eg translation equivariance with convolution)
+- data augmentation
+
+Latter seems feasible: crops, brightness, saturation, hue etc
+modifications. but this is an unsupervised task, so how can we tell
+the model that the class is not modified?
+
+Hey, maybe we could have a first supervised learning stage,
+with one class per {case U augmentations}. Then we do unsupervised
+learning in the feature space obtained from the augmentations.
+Hopefully the features will get rid of all the class-invariant
+patterns.
+
+We wouldn't need to do the first stage with all training data.
+That wouldn't be a good idea because top layer would be too big.
+We should select one case per class. (Not 2 cases from same class,
+because don't want to create a separate class for each, that would
+really confuse the net).
+
+
+
+Distributed Representations are a great prior for data in nature
+=================================================================
+Y. Bengio:
+
+"Distributed because of compositionality, which results from
+hierarchies of layers.
+
+Compositionality of the parameters, i.e., the same parameters can
+be re-used in many contexts, so O(N) parameters can allow to
+distinguish O(2^N) regions in input space, whereas with nearest-
+neighbor-like things, you need O(N) parameters (i.e. O(N) examples)
+to characterize a function that can distinguish betwen O(N) regions.
+
+This "gain" is only for some target functions, or more generally,
+we can think of it like a prior. If the prior is applicable to our
+target distribution, we can gain a lot. As usual in ML, there is no
+real free lunch. The good news is that this prior is very broad and
+seems to cover most of the things that humans learn about. What it
+basically says is that the data we observe are explained by a bunch
+of underlying factors, and that you can learn about each of these
+factors WITHOUT requiring to see all of the configurations of the
+other factors. This is how you are able to generalize to new
+configurations and get this exponential statistical gain."
+
+The learned discriminative frontier in the input space is assumed to
+have lots of "symmetries", so once a few training examples in one
+region give it the right shape, a "similar" shape is correctly
+reproduced in another region where no training examples exist?
+
+IDEA: for a specific dataset and architecture:
+1) analytically determine (two) regions in input space where shape
+   of discriminative frontier is governed by same parameters
+2) deliberately remove all training cases from one region
+3) see whether test cases in this region are correctly classified? ﻿
+
+background papers:
+- 'symmetries': ICLR paper with Pascanu et al on theoretical
+analysis of number of regions.
+- non-local estimation of manifold structure: bit.ly/1pELZG5
 
 
