@@ -105,6 +105,17 @@ We should select one case per class. (Not 2 cases from same class,
 because don't want to create a separate class for each, that would
 really confuse the net).
 
+The biological motivation for this is that we learn transformation
+invariances by watching a single object move around space
+continuously. Because we see video and can segment, we know it's the
+same object, so we learn to become invariant to all the
+transformations that occur on it as it moves around.
+
+As an experiment, do just that: take 24 frames per second, recognise
+the moving person, watch it for a certain amount of time (ie take
+maybe 100,000s of images of it) and then do the same when that person
+is not present, and learn the supervised binary classifier task.
+
 
 
 Distributed Representations are a great prior for data in nature
@@ -146,5 +157,22 @@ background papers:
 - 'symmetries': ICLR paper with Pascanu et al on theoretical
 analysis of number of regions.
 - non-local estimation of manifold structure: bit.ly/1pELZG5
+
+
+
+Sparsity vs Distributed vs Dropout; visualise training inside
+=============================================================
+
+We're told sparsity is great and didstributed representations are
+great and dropout is great. Yet sparsity and dropout reduce the
+extent of distributiveness. What's really going on? Why is 0.5
+dropout optimal? Is there an optimum between sparsity and density
+that 0.5 dropout corresponds to? Can we develop a conceptual framework
+that leads to an analytical solution? Or can we train nets more or
+less well and visualise the activities in the entire network to
+get a detailed and clear understanding of what's going on?
+
+
+
 
 
