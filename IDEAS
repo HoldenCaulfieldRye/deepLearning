@@ -6,6 +6,23 @@ read: sparse matrix factorisation
 http://nuit-blanche.blogspot.fr/2014/01/sparse-matrix-factorization-simple.html
 
 
+Midway Feedback
+===============
+If you have additional labels that could help with discrimination, train an off-shoot
+classifier on a midway layer that feeds off a subset of the output units.
+Can do this with the CP dataset using bounding boxes, fitting type, and eg in the case of
+scraping, hatch markings. 
+For the scrape case, detecting hatch markings early on using 
+a strict subset of the units might be a way of telling the model "if you can't see 
+hatch markings around the fitting, use alternative means to determine scrape." it would 
+be even better to enforce a kind of if-statement in the architecture for this.
+
+
+Understanding Deep Models
+=========================
+Nearest neighbour clustering of inputs at any hidden layer and manual inspection of 
+clusters to see whether they have semantic similarities.
+
 
 Stochastic Dropout
 ==================
@@ -174,5 +191,16 @@ get a detailed and clear understanding of what's going on?
 
 
 
+Better error surface at each layer with analytical bias update
+==============================================================
+error surface should be nice and bowl like
+this is achieves when incoming data (or weights?) is symmetric and meaned at zero
+this is done by demeaning the data but this only applies to 1st layer neurons
+what about subsequent? data can be demeaned again with the biases
+so why not update biases with mean of projected data?
+maybe this mean can be computed dynamically?
+---
+data should also have unit std dev, find out why
+can something also be done?
 
 
