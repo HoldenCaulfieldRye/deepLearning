@@ -31,7 +31,8 @@ require 10^8 or 9 words to achieve these results.
 
 user intent classification model: predict intent of user conditioned on utterances of 
 that user. can be applied to speech recog, NL interpretation, state tracking, response 
-generation. has allowed goal driven dialogue to make sig progress.
+generation. has allowed goal driven dialogue to make sig progress
+Williams 2013.
 
 response models: deterministic vs generative
 * det: selects from a fixed set of possible responses, generate by keeping posterior 
@@ -52,7 +53,106 @@ reinforcement L: v small set of possible system states and actions.
 long term interactions: eg require steps of clarification before offering pertinent 
 info. corpora with long interactions are important.
 
+====
 
+Tinder relevant written dialogue datasets:
+
+scripted human conversations:
+
+* American Soap Opera Corpus, 10M utterances, 22k scripts, 100M words
+  insights into colloquial American speech. corpus does not come with
+  speaker labels.
+  
+* OpenSubtitles, 140M utterances, 210k scripts, 1B words
+  movie subtitles, not speaker-aligned
+  SubTle Corpus has been preprocessed from it in order to extract
+  interaction-response pairs, to help dialogue systems deal with out
+  of domain interactions
+
+human conversations:
+forum: post + replies, long utterances
+micro-blogging: eg twitter, v short utterances, abbreviations, v colloquial
+chat: real-time between users
+
+* NPS Chat Corpus, 100M words -- posts from age-specific online chat rooms
+  10k utterances gathered from age specific chat rooms. each utterance
+  annotated with part-of-speech and dialogue act info, correctness
+  verified manually. applied to conversation thread topic detection,
+  author profiling, entity identification, but not chatbot.
+
+* Usenet Corpus, 7B words -- UseNet forum postings
+  Usenet: distributed discussion system est 1980. participants post
+  articles to 1 of 50k newsgroup categories. applied to collab
+  filtering & role detection, not chatbot.
+
+* Reddit Corpus, 1.7B comments
+  comment labeled with author, score, position in comment tree (to
+  infer dialogue sequence). researchers have not yet investigated
+  dialogue probs using this dataset. sheer size makes it interesting
+  for transfer learning. subsets have been used for broad discourse
+  classification in 2015.
+
+* Reddit Domestic Abuse Corpus, 19M-103M words -- from domestic abuse
+  subreddits or general chat. classifier for detecting domestic abuse
+  Schrading 2015. pre-processed with lower-casing, lemmatising,
+  removal of stopwords. semantic role labels are provided.
+
+* Internet Argument Corpus, 390k posts
+  post-reply pairs labeled as agree/disagree, sarcasm ratings given to
+  each post.
+
+---
+
+ImageNet-impact NL datasets
+
+
+criteria:
+* language? english
+* tone? formal
+* descriptive labels? intention, ...?
+* volume? 1B?
+
+candidates:
+* Reddit Corpus, 1.7B comments
+  2015 "researchers have not yet investigated dialogue problems using
+  this dataset".
+
+commercial impact framework:
+* analysing what is written: discriminative
+  * social network, targeted advertising
+  * b2b, contracts
+  * b2c, Ts&Cs
+* writing
+  * generating contracts
+  * 
+* interacting
+  * call centres
+  * consumer sales
+
+note:
+* vision has one majority category, natural imagery. ImageNet is bang on.
+  rendered macro imagery (Xray, radar, ultrasound etc) and microscopy
+  are the 2 other categories. relative commercial potential for each 
+  is...? domain transfer between them is how good...?
+* NL is more fragmented, it can be divided by language and tone
+  (colloquial vs formal). commercial potential most likely in English formal, 
+* 
+
+
+====
+
+Learning from Dialogue Corpora
+
+1. preprocessing: remove acronyms, slang, misspellings,
+phonemicization. for generative, tokenization is critical.
+* IRC Beginner List can be used to translate most common acronyms /
+slang into standard english. 
+* Wikipedia's most commonly misspelled words to lookup & replace
+potential spelling errors. 
+
+2. segment speakers and conversations: 
+
+====
 
 
 Efficient Multiple Instance Convolutional Neural Networks for Gigapixel
