@@ -1,0 +1,70 @@
+
+A survey of available corpora for building data-driven dialogue systems
+=======================================================================
+how important is need to gen novel responses?
+assuming it is for big industrial apps:
+* 1B word pretraining set, finetuning set
+* gen model, end2end?
+* user intent?
+
+
+recent progress due to large public datasets
+corpus based learning not the only approach to training dialogue systems: live 
+interaction with humans, off-line reinforcement learning methods.
+data pre-processing: spelling correction, speaker segmentation
+std arch for dialogue sys:
+1. speech recogniser
+2. natural language interpreter
+3. state tracker
+4. response generator
+5. natural language generator
+6. speech synthesizer
+
+end2end dialogue sys: 2-5(?)
+starting to gain attention Serban 2015.
+
+goal driven: well defined measure of performance explicitly related to task completion
+eg technical support
+
+NN architectures trained on large scale corpora have shown promising results, but 
+require 10^8 or 9 words to achieve these results.
+
+user intent classification model: predict intent of user conditioned on utterances of 
+that user. can be applied to speech recog, NL interpretation, state tracking, response 
+generation. has allowed goal driven dialogue to make sig progress.
+
+response models: deterministic vs generative
+* det: selects from a fixed set of possible responses, generate by keeping posterior 
+over all possible utterances. det skips NL generator step. Banchs & Li 2012 search 
+through a db of dialogues and pick responses with most similar context. 
+* hybrid: deterministically create fixed number of answers, pick response acc to the 
+prob of the RNN, Sordoni et al 2015b. does not construct prob distrib over all possible
+responses.
+* gen: full post prob distrib over possible system actions at every turn.
+2015 publications generate responses by sampling word by word from their prob distrib.
+able to gen entirely novel responses. gen highly probable responses via beam search 
+method Graves 2012. project each word into Euc space ie word embedding, project dialogue
+history and external knowledge into Euc space: Wen et al 2015, Lowe et al 2015b. still
+in infancy but similar models applied for stat mach transl, promising results.
+
+reinforcement L: v small set of possible system states and actions.
+
+long term interactions: eg require steps of clarification before offering pertinent 
+info. corpora with long interactions are important.
+
+
+
+
+Efficient Multiple Instance Convolutional Neural Networks for Gigapixel
+Resolution Image Classification
+arxiv.org/pdf/1504.07947v1.pdf
+
+DRAW: A Recurrent Neural Network For Image Generation
+arxiv.org/pdf/1502.04623v1.pdf
+
+A Convolutional Neural Network for Modelling Sentences
+arxiv.org/pdf/1404.2188v1.pdf
+
+DeepMind Nature paper: http://is.gd/wEpZWx
+
+
