@@ -6,6 +6,24 @@ read: sparse matrix factorisation
 http://nuit-blanche.blogspot.fr/2014/01/sparse-matrix-factorization-simple.html
 
 
+High level rule learning
+========================
+motivation: human can be taught a class from few examples because teacher
+& human can talk about which features on example generalise, which don't.
+eg back of car mistakes: if human can spot what discriminative features
+could be (red lights vs white lights), and these features are likely
+to be learned in the model,
+why does it not get picked up? how many images are generally required
+for it to get picked up? how can we speed this up?
+is it correct to visualise this as: find the hyperplane that separates
+along the feature, pinned down by as few images (support vectors) as
+possible. can reduce the angle span of potential hyperplane by half
+every time. maybe don't need to do it for all dims cos data is on a
+low dim manifold.
+then, once have the hyperplane pinned down, impose it onto the
+classifier somehow (reinforce it during training?)
+
+
 Midway Feedback
 ===============
 If you have additional labels that could help with discrimination, train an off-shoot
