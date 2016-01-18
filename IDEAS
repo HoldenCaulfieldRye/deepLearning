@@ -5,7 +5,6 @@ Bengio google tech talk video
 read: sparse matrix factorisation
 http://nuit-blanche.blogspot.fr/2014/01/sparse-matrix-factorization-simple.html
 
-
 High level rule learning
 ========================
 motivation: human can be taught a class from few examples because teacher
@@ -24,12 +23,82 @@ then, once have the hyperplane pinned down, impose it onto the
 classifier somehow (reinforce it during training?)
 
 
+Approximation of error surface works
+========================================
+How does the training set provide an approximation of the true error surface? Since it can introduce dangerous minima, does that mean that, formally, it does not always provide an extrema-conserving approximation of the true error surface? Theoretically, what are the conditions for obtaining an extrema-conserving approximation (i.e. that doesn't introduce fake minima)? Practically, can we perform transformations on the cost function, or do stuff to our data (sampling), to limit the introduction of fake minima? 
+
+Could we answer these questions if, instead of facing the usual problem of having a training set sampled from an unknown distribution, we ran a completely artificial experiment where we start with a known distribution? That way, we know the true error surface, and as we draw samples from the distribution, we can look at how each one approximates the true error surface, how it introduces bad minima? 
+
+
+Nonconvex optimisation: visualisations and priors for the error surfance
+========================================================================
+Error surface for eg convnets in compVision is nonConvex and maybe not even very smooth
+so global optimisation with eg random jumps is currently worthless 
+but if we knew the probability distribution of error surfaces in image classif, we could
+exploit it for faster training and perhaps even global optimisation?
+How do we find good priors for the error surface?
+
+Well, note it depends just as much on the model as the data.
+how do we know that error surface properties of a 2 layer 500k param NN carry over to 
+that of a 12 layer 100M param NN?
+
+Apparently saddle points are central to the optimisation prob 
+arxiv.org/pdf/1406.2572v1.pdf
+"a deeper understanding of the statistical properties of high dimensional error surfaces
+will guide the design of novel non-convex optimization algorithms"
+-> Razvan Pascanu is in London at DeepMind
+
+idea 1: know the manifold, derive error surface analytically
+-> well studied case eg face pose?
+-> artificial dataset?
+
+idea 2: brute force sample many points 
+-> MNIST
+
+idea 3: look for usual analytical properties looked for in optimisation literature
+-> in real life datasets
+-> which can lead to useful theorems
+-> some properties: http://www.mit.edu/~9.520/spring08/Classes/optlecture.pdf
+
+
+
+Make imagenet penultimate layer much smaller!
+=============================================
+find papers that experiment with this
+must be little loss in accuracy when removing lots of dims
+will significantly reduce computation
+
+
+Improve on best imagenet model as initial image embedder
+========================================================
+might be some dims that dont matter as much for our labelling tasks 
+
+
+Natural manifolds are discontinuous in pixel space
+==================================================
+Dunno whether this is already a known and accepted fact, assuming it isnt.
+We're always talking about how manifolds are non-linear.
+But in pixel space, aren't they even discontinuous? change the viewpoint of a
+scene marginally, you end up completely elsewhere in pixel space.
+Have we ever tried visualising this stuff? Take a smooth video of a scene, 
+varying viewpoint slightly, plot each frame in pixel space, visualise dim 
+reduction of set that is spanned.
+
+
+Finding mis-labelled data
+=========================
+as information retrieval: find images most similar to these ones but of 
+different label.
+as labelling tool: paste product idea email.
+>>>>>>> 29eef86e704eb54c557fc64402bd52270869d066
+
+
 Midway Feedback
 ===============
 If you have additional labels that could help with discrimination, train an off-shoot
 classifier on a midway layer that feeds off a subset of the output units.
-Can do this with the CP dataset using bounding boxes, fitting type, and eg in the case of
-scraping, hatch markings. 
+Can do this with the CP dataset using bounding boxes, fitting type, and eg in the case 
+of scraping, hatch markings. 
 For the scrape case, detecting hatch markings early on using 
 a strict subset of the units might be a way of telling the model "if you can't see 
 hatch markings around the fitting, use alternative means to determine scrape." it would 
@@ -56,13 +125,6 @@ conv layer?
 Incorporate more domain knowledge into network architecture
 ===========================================================
 Need to copy my handwritten notes.
-
-
-How approximation of error surface works
-========================================
-How does the training set provide an approximation of the true error surface? Since it can introduce dangerous minima, does that mean that, formally, it does not always provide an extrema-conserving approximation of the true error surface? Theoretically, what are the conditions for obtaining an extrema-conserving approximation (i.e. that doesn't introduce fake minima)? Practically, can we perform transformations on the cost function, or do stuff to our data (sampling), to limit the introduction of fake minima? 
-
-Could we answer these questions if, instead of facing the usual problem of having a training set sampled from an unknown distribution, we ran a completely artificial experiment where we start with a known distribution? That way, we know the true error surface, and as we draw samples from the distribution, we can look at how each one approximates the true error surface, how it introduces bad minima? 
 
 
 Early stopping
@@ -220,5 +282,22 @@ maybe this mean can be computed dynamically?
 ---
 data should also have unit std dev, find out why
 can something also be done?
+
+
+Yann LeCun convnet global optimisation
+======================================
+https://www.youtube.com/watch?v=zPVHH7ZJi9Q&t=1h12m55s
+
+
+Andrew Davison talk at royal society
+====================================
+1. learning from remote controlled staford video?
+-> highly supervised and rich labels, literally says which
+2. prior knowledge of what's in the scene rather than brute force reconsruction
+-> instead of being  super granular object level, how about more generalisable knowledge such as surfaces of human constructed objects tend to be composed of planes or curves, so linear or quadratic equation, so not many params to estimates?
+3. learning optimal features for SLAM?
+
+
+
 
 

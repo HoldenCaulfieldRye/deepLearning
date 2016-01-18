@@ -1,0 +1,45 @@
+
+Andrew Ng Helicopter presentation: https://www.youtube.com/watch?v=AY4ajbu_G3k
+
+does vertical landing of a rocket require learning? in light of additional source of documentation this video summarising learning to fly a helicopter, and control engineering in more general terms.
+
+"for a computer, the problem is, 10 times a second, you're told where the helicopter is, and you need to figure out how to move all those control sticks to keep the helicopter balanced."
+-> from the falcon 9 video, it looks like you're given status data at a much lower frequency. so maybe that's a non learning-related fix that's needed.
+-> but it probably makes it much harder that the rocket is so huge, can't use friction with air to absorb a miscalculated movement. maybe that should be learned?
+
+3:50 "it is too complicated for an engineer to write out a mathematical specification of the aerodynamics of a helicopter"
+-> so you have to learn them.
+-> but maybe aerodynamics of a big fat vertical thrust rocket are actually simple?
+
+
+---
+
+Ryan Adams, Harvard: Bayesian optimization of NNs
+
+is.gd/xYvwto
+
+consider objective function which to all params or just the hyperparams of the NN, 
+assigns the NNs final validation or test error
+-> v expensive objective function to evaluate
+
+can form beliefs about what this objective function might be
+-> for any set of hyparams, think of distribution of cost aka obj function's value
+-> this distrib could be a gaussian process
+
+then choose next point of objective to evaluate so as to:
+a) exploit: pick point which maximises expected cost, or
+b) explore: pick point which most reduces uncertainty
+
+what's good?
+-> global optimisation
+-> nonparametric
+-> expected cost function is also nonconvex, but its easier to evaluate than objective
+function
+
+so where's the weakness? 
+-> extent of smoothness prior on gaussian process
+   -> too smooth, dont assign enough prob to true objective function
+   -> not smooth enough, converge too slowly
+-> so maybe should form beliefs on what appropriate smoothness assumption should be
+   ie go full bayesian
+
