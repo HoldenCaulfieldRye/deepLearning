@@ -5,6 +5,44 @@ Bengio google tech talk video
 read: sparse matrix factorisation
 http://nuit-blanche.blogspot.fr/2014/01/sparse-matrix-factorization-simple.html
 
+Tinder chatbot
+==============
+dataset: JRo / tinder subreddit
+pretraining dataset: reddit + word2vec?
+model: RNN word by word?
+pretraining algo: RNN SGD
+finetuning algo: RNN SGD
+online learning: many fake tinder accounts
+hackathon product: twitch for tinder? encourage dialogue act annotation?
+
+1. re-ranking response model info retrieval (bayesian sets?)
+2. re-rank JRo responses given context, using LSTM.
+* initialise with big word embedding (instead of one-hot in 1st layer)
+  * preprocess to ensure no out of pretraining domain tokens/words
+* finetune LSTM on JRo dialogues / tinder subReddit dialogues
+  * potential answers is (subset of) JRo / tinder subReddit
+3. full generative response models
+* is open source code from relevant papers available?
+* how does transfer learning fit in?
+* is available tinder data likely sufficient?
+* do we want to privilege research rather than hackathon results?
+  or is there a way to split roles across team
+* if satisfactory answers to all above, Tinder interesting to improve
+on recent leading papers, by having more context than twitter (and
+possible movie subtitles?): "longer convos, task specific, user profiles".
+
+* extended ideas:
+  * incorporate task completion metric in learning objective
+  * user profile info as context, for diverse dialogue
+  * get more diveristy in answers via dialogue act conditioning
+    {'prudent', 'aggressive'} x {'answer', 'ask'} x {'same topic',
+     'different topic', 'date topic'}
+  * learn dialogue act strategy with RL
+  
+* issues to expect:
+  * insuff
+
+
 High level rule learning
 ========================
 motivation: human can be taught a class from few examples because teacher
@@ -23,7 +61,16 @@ then, once have the hyperplane pinned down, impose it onto the
 classifier somehow (reinforce it during training?)
 
 
-Approximation of error surface works
+ImageNet of NLP - sufficiently meaningful labels
+================================================
+ImageNet labels allow model to cast out semantically meaningless
+patterns and learn invariances that matter.
+Need to find out what patterns word embedding models miss, evaluate
+whether best way to overcome is via specific labels, then how to get
+these labels. (industry? mechTurk? multi modal eg film?)
+
+
+How approximation of error surface works
 ========================================
 How does the training set provide an approximation of the true error surface? Since it can introduce dangerous minima, does that mean that, formally, it does not always provide an extrema-conserving approximation of the true error surface? Theoretically, what are the conditions for obtaining an extrema-conserving approximation (i.e. that doesn't introduce fake minima)? Practically, can we perform transformations on the cost function, or do stuff to our data (sampling), to limit the introduction of fake minima? 
 

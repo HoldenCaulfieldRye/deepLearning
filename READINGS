@@ -91,6 +91,7 @@ chat: real-time between users
   dialogue probs using this dataset. sheer size makes it interesting
   for transfer learning. subsets have been used for broad discourse
   classification in 2015.
+  * finetune on tinder subreddit
 
 * Reddit Domestic Abuse Corpus, 19M-103M words -- from domestic abuse
   subreddits or general chat. classifier for detecting domestic abuse
@@ -150,10 +151,123 @@ slang into standard english.
 * Wikipedia's most commonly misspelled words to lookup & replace
 potential spelling errors. 
 
-2. segment speakers and conversations: 
+2. segment speakers and conversations: Serban & Pineau 2015, Jurafsky
+& Martin 2008
+* only if speakers not already segmented
 
 ====
 
+Discriminative Model Archs
+
+discr model might be trained to predict intent of a person in a
+dialogue, or the topic, or a specific piece of info.
+
+1. Dialogue act classification / dialogue topic spotting
+classify an utterance independent of rest of the convo as one the K
+dialogue acts. how important for Tinder chatbot? 
+
+2. Dialogue state tracking
+for every time step t of dialogue, given ASR outputs, SLU outputs
+and external knowledge sources, output prob distrib over a set of Nt
+predefined hypotheses, in addition to REST hypothesis (aka none of other
+Nt hypotheses are correct). distrib needs to match labels on training set.
+how important for Tinder chatbot?
+
+====
+
+Response Generation Models
+
+'potential to learn semantically more powerful representations of
+dialogue compares to discriminative models which are limited by
+annotation scheme' -- bullshit if think of ImageNet
+
+1. Re-ranking response models
+re-rank set of candidate answers, output top rank answer. removes need
+for dialogue state tracking and associated heavy labeling. only need
+to know sequence of utterances (ie which was top ranked answer). can
+then train by adding other candidate utterances for each step.
+
+Banchs and Li 2012: find dialogue in db most similar to current
+dialogue, return answer from it. vector space embedding (of word,
+sentence, utterance, dialogue?). db: movie scripts. 'few' params.
+nearest neighbor approach, poor generalisation. risk low coherence
+throughout dialogue.
+
+Ameixa et al 2014: idem, db: movie subtitles.
+
+Lowe et al 2015a: predict next utterance given prev k utterances. LSTM
+as model, trained with SGD. provide set of potential answers to avoid
+exponential |Y|. advantage: finetunes to target dataset, not stuck
+with similarity metric / features as with 2 cases above.
+
+2. Full generative response models
+automatically produce utterances by composing text. define set of
+dialogue system actions as sequences of words aka utterances. assume
+both user and system utterances can be represented by same generative
+distrib: (*)
+P(u_1, .., u_T) = prod{t=1:T} P(u_t | u_<t), where
+P(u_t | u_<t)   = prod{i=1:N} P(w_{t,i} | w_{t,<i}, u_<t), where
+u_t is a sequence of tokens w_{t,1}, .., w_{t,N}, where
+tokens are words.
+this allows to sample from word distrib, not utterance distrib.
+P is a model learned by MLE/SGD w/ vector rep of words & dialogue histories
+
+Sordoni et al 2015b use above to generate Twitter responses. P is a
+RNN. the learned generative model combined with a machine translation
+system outperforms a state of the art machine translation system.
+what does this combo consist in? what value add does model have? what
+about Lowe 2015a perf, can it be quantified? is MT a way to quantify perf?
+
+Serban et al 2015 extend above model to generate responses for movie
+subtitles / scripts. use more complex RNN. 'however since model used
+in a standalone manner without combo with MT syst, majority of
+generated responses are high generic' (mode of posterior same as mode
+of prior? why not solve by dividing by prior?). authors conclude this
+is a limitation of all NN-based gen models for dialogue. (paper argues)
+training set has too little variance (not enough nouns, rare verbs,
+adjectives).
+
+Li et al 2015 increase response diversity by modifying obj function to
+optimise wrt context ie prev utterances. inconclusive results. issue
+may require larger corpora, more context (eg longer convos, user
+profiles, task-specific corpora -- all of which Tinder satisfies).
+
+Wen et al 2015 train RNN to generate utterance as (*) but condition on
+a specified dialogue act:
+P(u_t | A) = prod{i=1:N} P(w_{t,i} | w_{t,<i}, A)
+not conditioning on prev utterances? (intractable?)
+based on hybrid approach combining differents RNNs for answer gen and
+CNNs for reranking answers, able to gen diverse utterances
+representative of dialogue act. need more info here to understand fully?
+
+====
+
+Transfer learning
+Forgues et al 2014 use related datasets to bootstrap learning.
+Erhan et al 2010 use related datasets for DL pretraining.
+for open-domain systems, may be advisable to do unsupervised
+pretraining rather than supervised / RL pretraining, othw feedback
+signal too sparse.
+
+Goal driven dialogue systems
+when task completion metric is available, useful to incorporate it in
+the learning objective.
+
+Incorporating external knowledge
+[...]
+structured external knowledge [...]
+unstructured external knowledge [...]
+
+Longer memories
+Memory networks and neural turing machines already shown to work for a
+variety of NLP tasks. idea: dialogue utterance generation where
+semantic memory is the desired external knowledge source.
+
+Evaluation metrics
+[...]
+
+
+====
 
 Efficient Multiple Instance Convolutional Neural Networks for Gigapixel
 Resolution Image Classification
